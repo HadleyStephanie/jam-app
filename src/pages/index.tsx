@@ -1,13 +1,22 @@
 import { signIn, signOut, useSession } from "next-auth/react";
 import Head from "next/head";
 import Link from "next/link";
+import BirthdaysCarousel from "~/components/BirthdaysCarousel";
+import DailyCarousel from "~/components/DailyCarousel";
+import EventsCarousel from "~/components/EventsCarousel";
 import { api } from "~/utils/api";
 
 export default function Home() {
   const hello = api.example.hello.useQuery({ text: "from tRPC" });
 
   return (
-    <></>
+    <>
+      <div className="px-24 pt-10">
+        <DailyCarousel />
+        <EventsCarousel />
+        <BirthdaysCarousel />
+      </div>
+    </>
     // <>
     //   <Head>
     //     <title>Create T3 App</title>
