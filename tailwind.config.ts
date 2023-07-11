@@ -7,6 +7,7 @@ export default {
       fontFamily: {
         "robot-serif": ["Roboto+Serif"],
       },
+      borderStyle: ["hover", "focus"],
     },
   },
 

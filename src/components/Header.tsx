@@ -18,10 +18,17 @@ export default function Header() {
         <Link href="/contacts">
           <Button label={"Contacts"} />
         </Link>
+        <Link href="/notes">
+          <Button label={"Notes"} />
+        </Link>
+        <Link href="/insights">
+          <Button label={"Insights"} />
+        </Link>
+        <Link href="/quotes">
+          {" "}
+          <Button label={"Quotes"} />
+        </Link>
 
-        <Button label={"Notes"} />
-        <Button label={"Analytics"} />
-        <Button label={"Quotes"} />
         <div>
           <button
             className="h-16 w-16 rounded-full bg-[#ABC0B6] "
