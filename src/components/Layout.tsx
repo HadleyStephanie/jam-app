@@ -8,7 +8,7 @@ export default function Layout({ children }: { children: ReactNode }) {
   return (
     <div className={robotoSerif.className}>
       <Header />
-      <main className="bg-stone-100">{children}</main>
+      <main className="h-[calc(100vh-90px)] bg-stone-100">{children}</main>
     </div>
   );
 }

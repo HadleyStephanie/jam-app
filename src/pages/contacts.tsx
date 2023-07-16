@@ -1,23 +1,220 @@
 import { useState } from "react";
-import ModalAddContact from "~/components/ModalAddContact";
 import { IoMdAddCircleOutline } from "react-icons/io";
+import { api } from "~/utils/api";
+import { useSession } from "next-auth/react";
+import ModalComponent from "~/components/ModalComponent";
+import { Contact } from "@prisma/client";
+
+interface ContactToCreate {
+  firstName: string | null;
+  lastName: string | null;
+  email: string | null;
+  jobTitle: string | null;
+  phone: number | null;
+  workPhone: number | null;
+  birthday: Date | null;
+  lastConnectionDate: Date | null;
+  connectionThreshold: number | null;
+}
+
+const defaultContact: ContactToCreate = {
+  firstName: null,
+  lastName: null,
+  email: null,
+  jobTitle: null,
+  phone: null,
+  workPhone: null,
+  birthday: null,
+  lastConnectionDate: null,
+  connectionThreshold: null,
+};
 
 export default function Contacts() {
   const [showModal, setShowModal] = useState(false);
+  const [contactToCreate, setContactToCreate] =
+    useState<ContactToCreate>(defaultContact);
+
+  const { data: sessionData } = useSession();
+
+  const { data: contacts, refetch: refetchContacts } =
+    api.contacts.getAll.useQuery(undefined, {
+      enabled: sessionData?.user !== undefined,
+    });
+
+  const createContact = api.contacts.create.useMutation({
+    onSuccess: () => {
+      void refetchContacts();
+    },
+  });
+
+  const handleSave = () => {
+    if (!contactToCreate?.firstName) {
+      return;
+    }
+    createContact.mutate({
+      ...contactToCreate,
+      firstName: contactToCreate.firstName,
+    });
+    setContactToCreate(defaultContact);
+    setShowModal(false);
+  };
+
   return (
     <div>
-      <h1>Contacts</h1>
-      <button
-        className=" ml-5 mr-5 flex items-center gap-2 rounded-lg bg-[#abc0b6] px-3 py-2.5 text-center text-white hover:bg-stone-400 focus:outline-none"
-        onClick={() => setShowModal(true)}
-      >
-        Add Contact
-        <IoMdAddCircleOutline size={34} />
-      </button>
-      <ModalAddContact
+      <div className="flex items-end justify-between px-3 py-6">
+        <h1 className="text-4xl">Contacts</h1>
+        <div className="flex items-center">
+          <input
+            className="rounded rounded-lg border-4 border-solid border-stone-300 p-1 px-2"
+            type="text"
+            placeholder="Search contacts..."
+          ></input>
+          <button
+            className="ml-5 mr-5 flex items-center gap-2 rounded-2xl bg-[#abc0b6] p-1 px-3 text-center text-white hover:bg-stone-400 focus:outline-none"
+            onClick={() => setShowModal(true)}
+          >
+            Add
+            <IoMdAddCircleOutline size={30} />
+          </button>
+        </div>
+      </div>
+      <div className="flex gap-6 pl-6 pt-10">
+        {contacts?.map((contact) => (
+          <ContactCard key={contact.id} contact={contact} />
+        ))}
+      </div>
+      <ModalComponent
         isVisible={showModal}
         onClose={() => setShowModal(false)}
-      ></ModalAddContact>
+        title={"Create New Contact"}
+        footer={
+          <div className="flex justify-center">
+            <button
+              className="mr-5 mt-4 rounded-lg bg-[#abc0b6] px-5 py-2.5 text-center text-white hover:bg-stone-400 focus:outline-none"
+              onClick={handleSave}
+            >
+              Save Contact
+            </button>
+          </div>
+        }
+      >
+        <form>
+          <div className="grid grid-cols-2">
+            <label className="">First Name:</label>
+            <input
+              className="mb-4 rounded border-4 border-solid border-stone-300"
+              type="text"
+              value={contactToCreate.firstName ?? ""}
+              onChange={(e) =>
+                setContactToCreate({
+                  ...contactToCreate,
+                  firstName: e.target.value,
+                })
+              }
+            ></input>
+            <label className="">Last Name:</label>
+            <input
+              className=" mb-4 rounded border-4 border-solid border-stone-300"
+              type="text"
+              value={contactToCreate.lastName ?? ""}
+              onChange={(e) =>
+                setContactToCreate({
+                  ...contactToCreate,
+                  lastName: e.target.value,
+                })
+              }
+            ></input>
+            <label className="">Email:</label>
+            <input
+              className="mb-4 rounded border-4 border-solid border-stone-300"
+              type="text"
+              value={contactToCreate.email ?? ""}
+              onChange={(e) =>
+                setContactToCreate({
+                  ...contactToCreate,
+                  email: e.target.value,
+                })
+              }
+            ></input>
+            <label className="">Job Title:</label>
+            <input
+              className="mb-4 rounded border-4 border-solid border-stone-300"
+              type="text"
+              value={contactToCreate.jobTitle ?? ""}
+              onChange={(e) =>
+                setContactToCreate({
+                  ...contactToCreate,
+                  jobTitle: e.target.value,
+                })
+              }
+            ></input>
+            <label className="">Phone:</label>
+            <input
+              className="mb-4 rounded border-4 border-solid border-stone-300"
+              type="number"
+              value={contactToCreate.phone ?? ""}
+              onChange={(e) =>
+                setContactToCreate({
+                  ...contactToCreate,
+                  phone: Number(e.target.value),
+                })
+              }
+            ></input>
+            <label className="">Work Phone:</label>
+            <input
+              className="mb-4 rounded border-4 border-solid border-stone-300"
+              type="number"
+              value={contactToCreate.workPhone ?? ""}
+              onChange={(e) =>
+                setContactToCreate({
+                  ...contactToCreate,
+                  workPhone: Number(e.target.value),
+                })
+              }
+            ></input>
+            <label className="">Birthday:</label>
+            <input
+              className="mb-4 rounded border-4 border-solid border-stone-300"
+              type="date"
+              onChange={(e) =>
+                setContactToCreate({
+                  ...contactToCreate,
+                  birthday: new Date(e.target.value),
+                })
+              }
+            ></input>
+            <label className="">Notes</label>
+            <textarea className="mb-4 rounded border-4 border-solid border-stone-300"></textarea>
+            <label className="mb-5">How often would you like to connect?</label>
+            <select
+              className="mb-6 rounded border-4 border-solid border-stone-300"
+              value={contactToCreate.connectionThreshold ?? ""}
+              onChange={(e) =>
+                setContactToCreate({
+                  ...contactToCreate,
+                  connectionThreshold: Number(e.target.value),
+                })
+              }
+            >
+              <option value="7">Weekly</option>
+              <option value="14">Bi-Weekly</option>
+              <option value="30">Monthly</option>
+              <option value="90">Quarterly</option>
+            </select>
+          </div>
+        </form>
+      </ModalComponent>
+    </div>
+  );
+}
+
+function ContactCard({ contact }: { contact: Contact }) {
+  return (
+    <div className="h-28 w-48 rounded-lg border-2 border-solid border-black p-2">
+      <div className="">
+        {contact.firstName} {contact.lastName}
+      </div>
+      <div>{contact.jobTitle}</div>
     </div>
   );
 }

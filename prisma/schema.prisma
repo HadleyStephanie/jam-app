@@ -74,8 +74,8 @@ model Contact {
   firstName           String
   lastName            String?
   email               String?
-  phone               Int?
-  workPhone           Int?
+  phone               BigInt?
+  workPhone           BigInt?
   birthday            DateTime?
   lastConnectionDate  DateTime?
   connectionThreshold Int?
