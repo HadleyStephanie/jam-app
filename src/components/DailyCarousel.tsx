@@ -79,6 +79,24 @@ export default function DailyCarousel() {
     });
   }, [contacts]);
 
+  const sortedConnections = useMemo(() => {
+    return contacts?.sort((a, b) => {
+      if (!a.lastConnectionDate) {
+        return -1;
+      }
+
+      if (!b.lastConnectionDate) {
+        return 1;
+      }
+
+      if (a.lastConnectionDate.getTime() < b.lastConnectionDate.getTime()) {
+        return -1;
+      }
+
+      return 1;
+    });
+  }, [contacts]);
+
   const NextArrow = () => {
     return (
       <button
@@ -112,10 +130,10 @@ export default function DailyCarousel() {
   return (
     <div className="py-4">
       <h3 className="text-xl font-extralight">Daily Connections</h3>
-      <div className="flex items-center">
+      <div className="flex w-full items-center">
         <PrevArrow />
         <Slider ref={sliderRef} {...sliderSettings}>
-          {contacts?.map((contact) => (
+          {sortedConnections?.map((contact) => (
             <Card key={contact.id} contact={contact} />
             // <div key={`connection-${connection.contact.contactId}`}>
             //   <h2>{connection.contact.name}</h2>
@@ -181,7 +199,7 @@ function Card({ contact }: { contact: Contact }) {
 
   return (
     <div
-      className={`daily-connection-card relative h-52 w-96 p-12 ${
+      className={`daily-connection-card relative h-52 w-full p-8 ${
         connected ? "connected" : ""
       }`}
     >
@@ -189,7 +207,7 @@ function Card({ contact }: { contact: Contact }) {
         {contact.firstName} {contact.lastName}
       </h3>
       <p className="font-thin">{`Last check-in: 
-        ${contact.lastConnectionDate?.toString() ?? ""}
+        ${contact.lastConnectionDate?.toDateString() ?? ""}
       `}</p>
       <button className="absolute bottom-6 right-6" onClick={handleClick}>
         {checked ? <p>✅</p> : <GiPlantRoots size={40} />}

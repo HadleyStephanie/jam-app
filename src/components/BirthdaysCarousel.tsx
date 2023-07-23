@@ -98,7 +98,7 @@ export default function BirthdaysCarousel() {
 
 function Card() {
   return (
-    <div className="birthday-card relative h-52 w-96 p-12">
+    <div className="birthday-card relative h-52 w-full p-8">
       <h3 className="text-2xl">{`Jim's Birthday!`}</h3>
       <p className="font-thin">email</p>
       <p className="font-thin">text</p>

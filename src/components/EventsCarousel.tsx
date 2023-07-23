@@ -98,7 +98,7 @@ export default function EventsCarousel() {
 
 function Card() {
   return (
-    <div className="event-card relative h-52 w-96 p-12">
+    <div className="event-card relative h-52 w-full p-8">
       <h3 className="text-2xl">{`JoAnn's Retirement`}</h3>
       <p>Details</p>
       <p className="font-thin">in 2 days</p>
