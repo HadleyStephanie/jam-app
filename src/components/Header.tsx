@@ -6,13 +6,11 @@ import Image from "next/image";
 export default function Header() {
   const { data: sessionData } = useSession();
   return (
-    <div className=" flex h-[90px] w-screen items-end justify-between bg-stone-100 p-4 px-12 drop-shadow-lg">
+    <div className=" flex h-[90px] w-screen items-end justify-between bg-gray-50 p-4 px-12 drop-shadow-lg">
       <Link href="/" className="flex items-end gap-4">
         {/* <div className="h-16 w-16 rounded-full bg-[#ABC0B6] "></div> */}
-        <GiEmptyHourglass size={40} />
-        <h2 className="text-3xl font-light tracking-widest drop-shadow-md">
-          Just a Moment
-        </h2>
+        {/* <GiEmptyHourglass size={40} /> */}
+        <h2 className="text-3xl font-light tracking-widest drop-shadow-md"></h2>
       </Link>
       <div className="flex items-end gap-4">
         <Link href="/contacts">

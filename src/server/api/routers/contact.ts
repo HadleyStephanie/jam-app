@@ -10,6 +10,10 @@ export const contactRouter = createTRPCRouter({
     });
   }),
 
+  healthCheck: protectedProcedure.query(({ ctx }) => {
+    return ctx.prisma.contact.findFirstOrThrow();
+  }),
+
   create: protectedProcedure
     .input(
       z.object({

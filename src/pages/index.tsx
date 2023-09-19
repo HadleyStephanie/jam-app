@@ -1,20 +1,47 @@
 import { signIn, signOut, useSession } from "next-auth/react";
 import Head from "next/head";
 import Link from "next/link";
-import BirthdaysCarousel from "~/components/BirthdaysCarousel";
-import DailyCarousel from "~/components/DailyCarousel";
-import EventsCarousel from "~/components/EventsCarousel";
+import { useEffect } from "react";
+
+import { type Contact } from "@prisma/client";
+
 import { api } from "~/utils/api";
+import LandingPage from "~/components/LandingPage";
+import CardsContainer from "~/components/CardsContainer";
+import Navbar from "~/components/Navbar";
+import { Dashboard } from "~/components/Dashboard";
 
 export default function Home() {
-  const hello = api.example.hello.useQuery({ text: "from tRPC" });
+  // const hello = api.example.hello.useQuery({ text: "from tRPC" });
+  const { isSuccess, isLoading, isLoadingError, isError } =
+    api.contacts.healthCheck.useQuery();
+  const healthy = !(isError || isLoadingError);
+
+  const { data: sessionData } = useSession();
+  const signedIn = sessionData?.user !== undefined;
+
+  useEffect(() => {
+    console.log("==STATUS UPDATE==");
+    console.log("isSuccess: ", isSuccess);
+    console.log("isLoading: ", isLoading);
+    console.log("isLoadingError: ", isLoadingError);
+    console.log("isError: ", isError);
+  }, [isError, isLoadingError, isLoading, isSuccess]);
+
+  // if (isLoading) {
+  //   return <div>Loading...</div>;
+  // }
 
   return (
     <>
-      <div className="px-24 pt-10">
-        <DailyCarousel />
-        <EventsCarousel />
-        <BirthdaysCarousel />
+      <div className="h-[calc(100vh-2.5rem-90px)] px-16 pt-10">
+        {signedIn ? (
+          <>
+            <Dashboard />
+          </>
+        ) : (
+          <LandingPage />
+        )}
       </div>
     </>
     // <>

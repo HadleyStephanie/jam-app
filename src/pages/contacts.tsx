@@ -83,7 +83,7 @@ export default function Contacts() {
         <h1 className="text-4xl">Contacts</h1>
         <div className="flex items-center">
           <input
-            className="rounded rounded-lg border-4 border-solid border-stone-300 p-1 px-2"
+            className=" rounded-lg border-4 border-solid border-stone-300 p-1 px-2"
             type="text"
             placeholder="Search contacts..."
             value={searchString}
@@ -98,7 +98,7 @@ export default function Contacts() {
           </button>
         </div>
       </div>
-      <div className="flex gap-6 pl-6 pt-10">
+      <div className="flex flex-wrap gap-6 pl-6">
         {filteredContacts?.map((contact) => (
           <ContactCard key={contact.id} contact={contact} />
         ))}
@@ -273,48 +273,72 @@ function ContactCard({ contact }: { contact: Contact }) {
     return `${contact.firstName}: ${new Date().toDateString()}`;
   }, [contact.firstName]);
 
+  const formatPhone = (phone?: string) => {
+    if (!phone) return "";
+    return `(${phone.slice(0, 3)}) ${phone.slice(3, 6)}-${phone.slice(6, 10)}`;
+  };
+
   return (
-    <div className="h-28 w-48 rounded-lg border-2 border-solid border-black bg-[#abc0b6] p-2">
-      <div className="">
-        {contact.firstName} {contact.lastName}
-      </div>
-      <div>{contact.jobTitle}</div>
-      <button onClick={handleOpenNotes}>
-        <BsPencilSquare size={20} />
-      </button>
-      <ModalComponent
-        isVisible={openNotes}
-        onClose={handleCloseNotes}
-        title={`New Note`}
-        footer={
-          <div className="flex justify-center">
-            <button
-              className="mr-5 mt-4 rounded-lg bg-[#abc0b6] px-5 py-2.5 text-center text-white focus:outline-none enabled:hover:bg-stone-400 disabled:opacity-50"
-              onClick={handleSave}
-              disabled={saveDisabled}
-            >
-              Save Notes
+    <div
+      className="min-w-64 h-36 w-64
+    rounded-lg bg-emerald-200 pl-6 drop-shadow-lg"
+    >
+      <div className="h-full w-full rounded-r-lg bg-white p-4">
+        <div className="flex h-full flex-col justify-between">
+          <div>
+            <div className="overflow-hidden text-ellipsis font-semibold">
+              {contact.firstName} {contact.lastName}
+            </div>
+            <div className=" h-6 overflow-hidden text-ellipsis text-sm text-gray-400">
+              {contact.jobTitle}
+            </div>
+            <div className="h-5 overflow-hidden text-ellipsis text-sm font-extralight">
+              {contact.email}
+            </div>
+            <div className="overflow-hidden text-ellipsis font-extralight">
+              {formatPhone(contact.phone?.toString())}
+            </div>
+          </div>
+          <div className="flex w-full justify-end">
+            <button onClick={handleOpenNotes}>
+              <BsPencilSquare size={20} />
             </button>
           </div>
-        }
-      >
-        <div className="flex flex-col justify-center">
-          <label>Notes Title: </label>
-          <input
-            className="mb-8 rounded rounded-lg border-4 border-solid border-stone-300 p-1 px-2"
-            placeholder={defaultTitle}
-            value={noteTitle}
-            onChange={handleTitle}
-          ></input>
-
-          <textarea
-            className="mb-4 min-h-[200px] rounded border-4 border-solid border-stone-300 p-2"
-            placeholder="Start typing..."
-            onChange={handleContent}
-            value={noteContent}
-          ></textarea>
         </div>
-      </ModalComponent>
+        <ModalComponent
+          isVisible={openNotes}
+          onClose={handleCloseNotes}
+          title={`New Note`}
+          footer={
+            <div className="flex justify-center">
+              <button
+                className="mr-5 mt-4 rounded-lg bg-[#abc0b6] px-5 py-2.5 text-center text-white focus:outline-none enabled:hover:bg-stone-400 disabled:opacity-50"
+                onClick={handleSave}
+                disabled={saveDisabled}
+              >
+                Save Notes
+              </button>
+            </div>
+          }
+        >
+          <div className="flex flex-col justify-center">
+            <label>Notes Title: </label>
+            <input
+              className="mb-8 rounded rounded-lg border-4 border-solid border-stone-300 p-1 px-2"
+              placeholder={defaultTitle}
+              value={noteTitle}
+              onChange={handleTitle}
+            ></input>
+
+            <textarea
+              className="mb-4 min-h-[200px] rounded border-4 border-solid border-stone-300 p-2"
+              placeholder="Start typing..."
+              onChange={handleContent}
+              value={noteContent}
+            ></textarea>
+          </div>
+        </ModalComponent>
+      </div>
     </div>
   );
 }

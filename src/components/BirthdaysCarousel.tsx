@@ -1,9 +1,9 @@
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-import { CSSProperties, useRef } from "react";
+import { useRef } from "react";
 import { FaChevronCircleLeft, FaChevronCircleRight } from "react-icons/fa";
-import { PiConfetti } from "react-icons/pi";
+import { PiConfettiBold } from "react-icons/pi";
 
 const dummyConnections = [
   {
@@ -49,7 +49,7 @@ export default function BirthdaysCarousel() {
   const NextArrow = () => {
     return (
       <button
-        className="h-8 w-8"
+        className="flex h-8 w-8 items-center justify-center"
         onClick={() => sliderRef.current?.slickNext()}
       >
         <FaChevronCircleRight />
@@ -60,7 +60,7 @@ export default function BirthdaysCarousel() {
   const PrevArrow = () => {
     return (
       <button
-        className="h-8 w-8"
+        className="flex h-8 w-8 items-center justify-center"
         onClick={() => sliderRef.current?.slickPrev()}
       >
         <FaChevronCircleLeft />
@@ -78,7 +78,7 @@ export default function BirthdaysCarousel() {
 
   return (
     <div className="py-4">
-      <h3 className="text-xl font-extralight">Birthdays</h3>
+      <h3 className="pb-4 pl-10 text-xl font-extralight">Birthdays</h3>
       <div className="flex items-center">
         <PrevArrow />
         <Slider {...sliderSettings}>
@@ -98,13 +98,15 @@ export default function BirthdaysCarousel() {
 
 function Card() {
   return (
-    <div className="birthday-card relative h-52 w-full p-8">
-      <h3 className="text-2xl">{`Jim's Birthday!`}</h3>
-      <p className="font-thin">email</p>
-      <p className="font-thin">text</p>
-      <p className="font-thin">in 5 days</p>
-      <div className="absolute bottom-6 right-6">
-        <PiConfetti size={40} />
+    <div className="birthday-card relative h-52 w-full bg-gradient-to-r from-fuchsia-400 from-10% via-fuchsia-300 via-30% to-fuchsia-200 pt-8 drop-shadow-lg">
+      <div className="h-full w-full rounded-b-lg bg-white p-4">
+        <h3 className="pb-2 text-2xl">{`Jim's Birthday!`}</h3>
+        <p className="font-thin">email</p>
+        <p className="font-thin">text</p>
+        <p className="font-thin">in 5 days</p>
+        <div className="absolute bottom-6 right-6">
+          <PiConfettiBold size={40} />
+        </div>
       </div>
     </div>
   );
