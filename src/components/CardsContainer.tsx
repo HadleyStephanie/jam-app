@@ -3,6 +3,7 @@ import React, { useState } from "react";
 import { type Contact } from "@prisma/client";
 import ConnectionCard from "./ConnectionCard";
 import BirthdayCard from "./BirthdayCard";
+import EventCard from "./EventCard";
 
 import { api } from "~/utils/api";
 import { useSession } from "next-auth/react";
@@ -22,9 +23,16 @@ export default function CardsContainer({
       enabled: sessionData?.user !== undefined,
     });
 
+  const { data: notes, refetch: refetchNotes } = api.notes.getAll.useQuery(
+    undefined,
+    {
+      enabled: sessionData?.user !== undefined,
+    }
+  );
+
   return (
     <>
-      <div className="flex max-w-7xl flex-1 flex-wrap justify-start gap-6 border border-black bg-red-500 px-4 py-4">
+      <div className="flex max-w-7xl flex-1 flex-wrap justify-start gap-6 rounded-l-lg bg-stone-50 py-4 pl-4">
         {activeTab === "connections"
           ? contacts?.map((contact) => (
               <ConnectionCard
@@ -35,8 +43,19 @@ export default function CardsContainer({
               />
             ))
           : ""}
-        {activeTab === "events" ? "events go here" : ""}
-        {activeTab === "notes" ? "notes go here" : ""}
+        {activeTab === "groups" ? "Groups go here" : ""}
+        {activeTab === "events" ? <EventCard /> : ""}
+        {activeTab === "notes"
+          ? notes?.map((note) => (
+              <div
+                key={note.id}
+                className="h-52 w-64 border border-deep-cerulean-300 bg-deep-cerulean-700"
+              >
+                <p className="text-lg text-deep-cerulean-50">{note.title}</p>
+                <p className="text-md text-deep-cerulean-100">{note.content}</p>
+              </div>
+            ))
+          : ""}
         {activeTab === "birthdays" ? <BirthdayCard /> : ""}
       </div>
     </>

@@ -1,4 +1,3 @@
-import { GiEmptyHourglass } from "react-icons/gi";
 import Link from "next/link";
 import { signIn, signOut, useSession } from "next-auth/react";
 import Image from "next/image";
@@ -6,15 +5,21 @@ import Image from "next/image";
 export default function Header() {
   const { data: sessionData } = useSession();
   return (
-    <div className=" flex h-[90px] w-screen items-end justify-between bg-gray-50 p-4 px-12 drop-shadow-lg">
+    <div className=" flex h-[90px] w-screen items-end justify-between  bg-slate-50 p-4  px-12 drop-shadow-lg">
       <Link href="/" className="flex items-end gap-4">
-        {/* <div className="h-16 w-16 rounded-full bg-[#ABC0B6] "></div> */}
-        {/* <GiEmptyHourglass size={40} /> */}
-        <h2 className="text-3xl font-light tracking-widest drop-shadow-md"></h2>
+        <Image
+          src="/../public/images/logo.jpg"
+          width={80}
+          height={80}
+          alt="Just a moment logo"
+        />
       </Link>
       <div className="flex items-end gap-4">
         <Link href="/contacts">
           <Button label={"Contacts"} />
+        </Link>
+        <Link href="/groups">
+          <Button label={"Groups"} />
         </Link>
         <Link href="/notes">
           <Button label={"Notes"} />

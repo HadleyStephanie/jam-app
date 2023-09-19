@@ -3,7 +3,8 @@ import React from "react";
 import { useState } from "react";
 import { type Contact } from "@prisma/client";
 import { api } from "../utils/api";
-import { GiPlantRoots } from "react-icons/gi";
+import { BsPersonCheck } from "react-icons/bs";
+import { BsPersonFillCheck } from "react-icons/bs";
 import { useSession } from "next-auth/react";
 
 export default function ConnectionCard({
@@ -69,7 +70,7 @@ export default function ConnectionCard({
     <div
       className={`daily-connection-card relative h-52 w-64 bg-gradient-to-r from-emerald-400 from-10% via-emerald-300 via-30% to-emerald-200 pt-8 drop-shadow-lg `}
     >
-      <div className="h-full w-full rounded-b-lg bg-white p-4">
+      <div className="h-full w-full rounded-b-lg bg-slate-50 p-4">
         <h3 className="pb-2 text-2xl">
           {contact.firstName} {contact.lastName}
         </h3>
@@ -78,9 +79,9 @@ export default function ConnectionCard({
         `}</p>
         <button className="absolute bottom-6 right-6" onClick={handleClick}>
           {checked.includes(contact.id) ? (
-            <p>✅</p>
+            <BsPersonFillCheck size={40} className="text-emerald-300" />
           ) : (
-            <GiPlantRoots size={40} />
+            <BsPersonCheck size={40} className="text-deep-cerulean-700" />
           )}
         </button>
       </div>

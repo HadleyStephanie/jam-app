@@ -83,14 +83,14 @@ export default function Contacts() {
         <h1 className="text-4xl">Contacts</h1>
         <div className="flex items-center">
           <input
-            className=" rounded-lg border-4 border-solid border-stone-300 p-1 px-2"
+            className=" rounded-full border-4 border-solid border-stone-300 p-1 px-2"
             type="text"
             placeholder="Search contacts..."
             value={searchString}
             onChange={handleSearchContacts}
           ></input>
           <button
-            className="ml-5 mr-5 flex items-center gap-2 rounded-2xl bg-[#abc0b6] p-1 px-3 text-center text-white hover:bg-stone-400 focus:outline-none"
+            className="ml-5 mr-5 flex items-center gap-2 rounded-full bg-deep-cerulean-500 p-1 px-3 text-center text-white hover:bg-stone-400 focus:outline-none"
             onClick={() => setShowModal(true)}
           >
             Add
