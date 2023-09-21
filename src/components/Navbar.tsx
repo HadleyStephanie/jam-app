@@ -3,7 +3,7 @@ import { BsPeopleFill } from "react-icons/bs";
 import { BsPencilSquare } from "react-icons/bs";
 import { PiConfettiBold } from "react-icons/pi";
 import { FaPeopleGroup } from "react-icons/fa6";
-import Tooltip from "./ToolTip";
+import Tooltip from "./Tooltip";
 
 export default function Navbar({
   activeTab,

@@ -13,28 +13,21 @@ import { Dashboard } from "~/components/Dashboard";
 
 export default function Home() {
   // const hello = api.example.hello.useQuery({ text: "from tRPC" });
-  const { isSuccess, isLoading, isLoadingError, isError } =
-    api.contacts.healthCheck.useQuery();
-  const healthy = !(isError || isLoadingError);
+  // const { isSuccess, isLoading, isLoadingError, isError } =
+  //   api.contacts.healthCheck.useQuery();
+  // const healthy = !(isError || isLoadingError);
 
   const { data: sessionData } = useSession();
   const signedIn = sessionData?.user !== undefined;
-
-  useEffect(() => {
-    console.log("==STATUS UPDATE==");
-    console.log("isSuccess: ", isSuccess);
-    console.log("isLoading: ", isLoading);
-    console.log("isLoadingError: ", isLoadingError);
-    console.log("isError: ", isError);
-  }, [isError, isLoadingError, isLoading, isSuccess]);
 
   // if (isLoading) {
   //   return <div>Loading...</div>;
   // }
 
+  //  px-16 pt-10
   return (
     <>
-      <div className="h-[calc(100vh-2.5rem-90px)] px-16 pt-10">
+      <div className="h-[calc(100vh-2.5rem-90px)]">
         {signedIn ? (
           <>
             <Dashboard />

@@ -4,6 +4,8 @@ import Image from "next/image";
 
 export default function Header() {
   const { data: sessionData } = useSession();
+
+  if (!sessionData) return;
   return (
     <div className=" flex h-[90px] w-screen items-end justify-between  bg-slate-50 p-4  px-12 drop-shadow-lg">
       <Link href="/" className="flex items-end gap-4">
