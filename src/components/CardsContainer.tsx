@@ -32,7 +32,7 @@ export default function CardsContainer({
 
   return (
     <>
-      <div className="flex max-w-7xl flex-1 flex-wrap justify-start gap-6 rounded-l-lg bg-stone-50 py-4 pl-4">
+      <div className="flex w-full flex-1 flex-wrap justify-start gap-6 rounded-l-lg bg-stone-50 px-3 py-6">
         {activeTab === "connections"
           ? contacts?.map((contact) => (
               <ConnectionCard

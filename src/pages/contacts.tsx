@@ -80,7 +80,7 @@ export default function Contacts() {
   return (
     <div>
       <div className="flex items-end justify-between px-3 py-6">
-        <h1 className="text-4xl">Contacts</h1>
+        <h1 className="text-4xl tracking-wide">Contacts</h1>
         <div className="flex items-center">
           <input
             className=" rounded-full border-4 border-solid border-stone-300 p-1 px-2"
@@ -324,7 +324,7 @@ function ContactCard({ contact }: { contact: Contact }) {
           <div className="flex flex-col justify-center">
             <label>Notes Title: </label>
             <input
-              className="mb-8 rounded rounded-lg border-4 border-solid border-stone-300 p-1 px-2"
+              className="mb-8 rounded  border-4 border-solid border-stone-300 p-1 px-2"
               placeholder={defaultTitle}
               value={noteTitle}
               onChange={handleTitle}
