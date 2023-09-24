@@ -1,3 +1,63 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+@tailwind variants;
+
+@import url("https://fonts.googleapis.com/css2?family=Caveat:wght@400;700&family=Roboto+Serif:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
+
+.slick-slide > div {
+  margin: 0 8px;
+}
+
+.slick-slider .slick-track {
+  margin-left: 0;
+  padding-bottom: 20px;
+}
+
+.slick-current {
+  width: 200px;
+}
+.slick-slider {
+  width: calc(100% - 4rem);
+}
+.slick-arrow {
+  /* background-color: #cbe2da; */
+  background-color: black;
+  color: black;
+}
+
+.daily-connection-card {
+  border-radius: 10px;
+  /* background-color: rgb(195, 224, 195); */
+  /* background: linear-gradient(
+    128deg,
+    #abc0b6 0%,
+    rgba(228, 204, 164, 0.6) 98.96%
+  ); */
+  /* box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25); */
+}
+
+.event-card {
+  border-radius: 10px;
+  /* background-color: rgb(193, 233, 234); */
+  /* background: linear-gradient(
+    128deg,
+    #d0b07f 0%,
+    rgba(228, 204, 164, 0.6) 98.96%
+  ); */
+  /* box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25); */
+}
+
+.birthday-card {
+  border-radius: 10px;
+  /* background: linear-gradient(
+    128deg,
+    #baabc0 0%,
+    rgba(228, 204, 164, 0.6) 98.96%
+  ); */
+  /* box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25); */
+}
+
+.connected {
+  opacity: 0.5;
+}

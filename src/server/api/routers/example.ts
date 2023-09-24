@@ -18,6 +18,10 @@ export const exampleRouter = createTRPCRouter({
     return ctx.prisma.example.findMany();
   }),
 
+  healthCheck: publicProcedure.query(({ ctx }) => {
+    return ctx.prisma.example.findFirstOrThrow();
+  }),
+
   getSecretMessage: protectedProcedure.query(() => {
     return "you can now see this secret message!";
   }),
