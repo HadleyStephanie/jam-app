@@ -59,6 +59,7 @@ model User {
   contacts      Contact[]
   connections   Connection[]
   notes         Note[]
+  group         Group[]
 }
 
 model VerificationToken {
@@ -85,6 +86,7 @@ model Contact {
   user                User         @relation(fields: [createdBy], references: [id], onDelete: Cascade)
   connections         Connection[]
   notes               Note[]
+  group               Group[]
 }
 
 model Connection {
@@ -95,6 +97,7 @@ model Connection {
   user      User     @relation(fields: [createdBy], references: [id], onDelete: Cascade)
   contact   Contact  @relation(fields: [contactId], references: [id], onDelete: Cascade)
   notes     Note[]
+  group     Group[]
 }
 
 model Note {
@@ -109,4 +112,19 @@ model Note {
   user         User        @relation(fields: [createdBy], references: [id], onDelete: Cascade)
   contact      Contact     @relation(fields: [contactId], references: [id], onDelete: Cascade)
   connection   Connection? @relation(fields: [connectionId], references: [id], onDelete: Cascade)
+}
+
+model Group {
+  id                  String      @id @default(cuid())
+  createdBy           String
+  createdAt           DateTime    @default(now())
+  modifiedAt          DateTime?
+  groupTitle          String      
+  lastConnectionDate  DateTime?
+  connectionThreshold Int?
+  contactId           String[]
+  connectionId        String?
+  user                User        @relation(fields: [createdBy], references: [id], onDelete: Cascade)
+  contact             Contact     @relation(fields: [contactId], references: [id], onDelete: Cascade)
+  connection          Connection? @relation(fields: [connectionId], references: [id], onDelete: Cascade)
 }

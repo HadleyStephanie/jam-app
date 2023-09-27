@@ -110,7 +110,7 @@ export default function Contacts() {
         footer={
           <div className="flex justify-center">
             <button
-              className="mr-5 mt-4 rounded-lg bg-[#abc0b6] px-5 py-2.5 text-center text-white hover:bg-stone-400 focus:outline-none"
+              className="mr-5 mt-4 rounded bg-[#abc0b6] px-5 py-2.5 text-center text-white hover:bg-stone-400 focus:outline-none"
               onClick={handleSave}
             >
               Save Contact
